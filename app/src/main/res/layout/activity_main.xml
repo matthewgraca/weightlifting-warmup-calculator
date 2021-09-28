@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/working_weight"
         android:inputType="number"
-        android:hint="Working Weight"
+        android:hint="@string/working_weight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/calculate_button"
-        android:text="Calculate"
+        android:text="@string/calculate"
         app:layout_constraintTop_toBottomOf="@id/working_weight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -29,7 +29,6 @@
         android:id="@+id/set_1_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="316dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calculate_button"
         tools:text="Set 1: 100" />
@@ -38,11 +37,8 @@
         android:id="@+id/set_2_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="136dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.819"
-        app:layout_constraintStart_toEndOf="@+id/set_1_result"
-        app:layout_constraintTop_toBottomOf="@id/calculate_button"
+        app:layout_constraintTop_toBottomOf="@id/set_1_result"
         tools:text="Set 2: 200" />
 
     <TextView
@@ -50,9 +46,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.986"
-        app:layout_constraintStart_toEndOf="@+id/set_2_result"
-        app:layout_constraintTop_toBottomOf="@+id/calculate_button"
+        app:layout_constraintTop_toBottomOf="@+id/set_2_result"
         tools:text="Set 3: 300" />
+
+    <TextView
+        android:id="@+id/set_4_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set_3_result"
+        tools:text="Set 4: 400" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
