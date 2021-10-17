@@ -30,7 +30,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorPoundsBelowLowerLimit(){
         try{
-            val scheme = SetScheme(4, 40, "pounds")
+            SetScheme(4, 40, "pounds")
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -52,7 +52,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorKilogramsBelowLowerLimit(){
         try{
-            val scheme = SetScheme(4, 10, "kilograms")
+            SetScheme(4, 10, "kilograms")
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -63,7 +63,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorUnitMisspelling(){
         try{
-            val scheme = SetScheme(4, 30, "kilogams")
+            SetScheme(4, 30, "kilogams")
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -74,11 +74,35 @@ class SetSchemeTest{
     @Test
     fun testConstructorInvalidSetCount(){
         try{
-            val scheme = SetScheme(0, 30, "kilograms")
+            SetScheme(0, 30, "kilograms")
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
             assertTrue(true)
         }
+    }
+
+    @Test
+    fun testCalculateScheme1(){
+        val scheme = SetScheme(4, 265, "pounds")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(100, 155, 210, 265)
+        assertArrayEquals(solution, setScheme)
+    }
+
+    @Test
+    fun testCalculateScheme2(){
+        val scheme = SetScheme(4, 300, "pounds")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(110, 175, 240, 300)
+        assertArrayEquals(solution, setScheme)
+    }
+
+    @Test
+    fun testCalculateScheme3(){
+        val scheme = SetScheme(4, 238, "pounds")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(95, 145, 195, 238)
+        assertArrayEquals(solution, setScheme)
     }
 }
