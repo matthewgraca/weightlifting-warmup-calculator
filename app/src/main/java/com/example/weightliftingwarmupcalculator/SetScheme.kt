@@ -1,6 +1,7 @@
 package com.example.weightliftingwarmupcalculator
 
 import java.lang.IllegalArgumentException
+import kotlin.math.roundToInt
 
 class SetScheme(private val sets: Int, private val workingWeight: Int, private val unit: String) {
     private val barWeight: Int
@@ -42,7 +43,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * Getter for workingWeight
      * @return  working weight
      */
-    public fun getWorkingWeight(): Int{
+    fun getWorkingWeight(): Int{
         return workingWeight
     }
 
@@ -50,7 +51,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * Getter for unit
      * @return  the unit (in kilograms or pounds)
      */
-    public fun getUnit(): String{
+    fun getUnit(): String{
         return unit
     }
 
@@ -58,7 +59,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * Getter for barWeight
      * @return  the weight of the bar, determined by kilograms (20) or pounds (45)
      */
-    public fun getBarWeight(): Int{
+    fun getBarWeight(): Int{
         return barWeight
     }
 
@@ -66,7 +67,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * Getter for scheme
      * @return  the set scheme to be used by the lifter, as an array
      */
-    public fun getScheme(): IntArray{
+    fun getScheme(): IntArray{
         return scheme
     }
 
@@ -75,16 +76,25 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  the set scheme the lifter follows, as an array
      */
     private fun calculateScheme(): IntArray{
-        /*val scheme = IntArray(sets)
-        val incrementWeight = (workingWeight - barWeight) / sets
+        val tempScheme = IntArray(sets)
+        val incrementWeight = roundToNearest5th((workingWeight - barWeight) / (sets * 1.0))
         var subtotal = barWeight
         var i = 0
         while (i < sets){
             subtotal += incrementWeight
-            scheme[i] = subtotal
+            tempScheme[i] = subtotal
             i++
         }
-        return scheme*/
-        return IntArray(0)
+        tempScheme[sets-1] = workingWeight  // enforce the final set to be the working weight
+        return tempScheme
+    }
+
+    /**
+     * Helper function that rounds a double to the nearest 5th, and converts it into an integer
+     * @param   num the number being converted
+     * @return  the number rounded to the nearest 5, as an integer
+     */
+    private fun roundToNearest5th(num: Double): Int{
+        return (kotlin.math.ceil(num / 5.0) * 5).roundToInt()
     }
 }

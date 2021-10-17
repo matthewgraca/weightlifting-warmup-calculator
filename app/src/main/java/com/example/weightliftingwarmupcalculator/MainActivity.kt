@@ -13,13 +13,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.calculateButton.setOnClickListener{calculateScheme()}
+        binding.calculateButton.setOnClickListener{findScheme()}
     }
 
     /**
      * This function calculates the weight scheme the user will follow
      */
-    private fun calculateScheme(){
+    private fun findScheme(){
         val workingWeight = binding.workingWeight.text.toString().toIntOrNull()
 
         if (workingWeight == null || workingWeight == 0){
@@ -28,30 +28,10 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             val weightedSets = 4
-            val emptyBarLbs = 45
-            val scheme = setScheme(emptyBarLbs, workingWeight, weightedSets)
-            displayScheme(scheme)
+            val scheme = SetScheme(weightedSets, workingWeight, "pounds")
+            val setScheme = scheme.getScheme()
+            displayScheme(setScheme)
         }
-    }
-
-    /**
-     * This function calculates the set scheme the user will follow
-     * @param   barWeight   the weight of the empty bar
-     * @param   weight      the final weight
-     * @param   sets        the amount of sets in the warmup scheme, including the working weight
-     * @return  an array of the warmup scheme being used
-     */
-    private fun setScheme(barWeight: Int, weight: Int, sets: Int): IntArray{
-        val scheme = IntArray(sets)
-        val incrementWeight = (weight - barWeight) / sets
-        var subtotal = barWeight
-        var i = 0
-        while (i < sets){
-            subtotal += incrementWeight
-            scheme[i] = subtotal
-            i++
-        }
-        return scheme
     }
 
     /**
