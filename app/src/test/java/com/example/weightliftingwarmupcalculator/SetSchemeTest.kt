@@ -5,6 +5,7 @@ import org.junit.Test
 import java.lang.IllegalArgumentException
 
 class SetSchemeTest{
+    // Tests for constructors
     @Test
     fun testConstructorPoundsNormalExample(){
         try{
@@ -82,6 +83,7 @@ class SetSchemeTest{
         }
     }
 
+    // Tests for calculating scheme
     @Test
     fun testCalculateScheme1(){
         val scheme = SetScheme(4, 265, "pounds")
@@ -104,5 +106,20 @@ class SetSchemeTest{
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(95, 145, 195, 238)
         assertArrayEquals(solution, setScheme)
+    }
+
+    // Tests for calculating plate scheme
+    @Test
+    fun testPlateScheme1(){
+        val scheme = SetScheme(4, 265, "pounds")
+        val plateScheme = scheme.getPlateScheme()
+        for (i in plateScheme.indices){
+            println(plateScheme[i].contentToString())
+        }
+        val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 0, 1),
+                                intArrayOf(1, 0, 0, 0, 0, 0, 0),
+                                intArrayOf(1, 0, 0, 1, 0, 0, 1),
+                                intArrayOf(2, 0, 0, 0, 0, 0, 0))
+        assertArrayEquals(solution, plateScheme)
     }
 }
