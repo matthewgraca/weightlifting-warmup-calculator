@@ -6,6 +6,7 @@ import kotlin.math.roundToInt
 class SetScheme(private val sets: Int, private val workingWeight: Int, private val unit: String) {
     private val barWeight: Int
     private var scheme: IntArray
+    private val plateArrayLbs: IntArray = intArrayOf(110, 90, 70, 50, 20, 10, 5)
 
     /**
      * Properly initializes workingWeight, unit, and sets. Also initializes set scheme
@@ -72,6 +73,26 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     }
 
     /**
+     * Finds the global plate scheme for every set
+     * @return  a two-dimensional array of plate schemes for each set
+     */
+    fun getPlateScheme(): Array<IntArray>{
+        val completePlateScheme: Array<IntArray>
+        if (unit == "pounds"){
+            completePlateScheme = Array(sets){IntArray(7)}
+            var i = 0
+            while (i < completePlateScheme.size){
+                completePlateScheme[i] = plateScheme(scheme[i])
+                i++
+            }
+        }
+        else{
+            completePlateScheme = Array(sets){IntArray(10)}
+        }
+        return completePlateScheme
+    }
+
+    /**
      * Helper function that calculates the set scheme the lifter follows
      * @return  the set scheme the lifter follows, as an array
      */
@@ -96,5 +117,30 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      */
     private fun roundToNearest5th(num: Double): Int{
         return (kotlin.math.ceil(num / 5.0) * 5).roundToInt()
+    }
+
+    /**
+     * Takes weight and gives the set of plates needed to construct that weight
+     * @return  an array of plates that constructs the given weight
+     */
+    private fun plateScheme(weight: Int): IntArray{
+        val plates: IntArray
+        var currentWeight: Int
+        if (unit == "kilograms"){
+            // code for kilo
+                currentWeight = weight - 20
+            plates = IntArray(10)
+        }
+        else{
+            currentWeight = weight - 45
+            plates = IntArray(7)
+            var i = 0
+            while (i < plates.size){
+                plates[i] = currentWeight / plateArrayLbs[i]
+                currentWeight %= plateArrayLbs[i]
+                i++
+            }
+        }
+        return plates
     }
 }
