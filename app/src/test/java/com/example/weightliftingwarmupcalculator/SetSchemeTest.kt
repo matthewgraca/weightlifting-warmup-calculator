@@ -113,9 +113,6 @@ class SetSchemeTest{
     fun testPlateScheme1(){
         val scheme = SetScheme(4, 265, "pounds")
         val plateScheme = scheme.getPlateScheme()
-        for (i in plateScheme.indices){
-            println(plateScheme[i].contentToString())
-        }
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 0, 1),
                                 intArrayOf(1, 0, 0, 0, 0, 0, 0),
                                 intArrayOf(1, 0, 0, 1, 0, 0, 1),
