@@ -7,6 +7,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     private val barWeight: Int
     private var scheme: IntArray
     private val plateArrayLbs: IntArray = intArrayOf(110, 90, 70, 50, 20, 10, 5)
+    private val plateArrayKgs: IntArray = intArrayOf(50, 40, 30, 20, 10, 5, 4, 3, 2, 1)
 
     /**
      * Properly initializes workingWeight, unit, and sets. Also initializes set scheme
@@ -77,17 +78,17 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  a two-dimensional array of plate schemes for each set
      */
     fun getPlateScheme(): Array<IntArray>{
-        val completePlateScheme: Array<IntArray>
+        val completePlateScheme: Array<IntArray> =
         if (unit == "pounds"){
-            completePlateScheme = Array(sets){IntArray(7)}
-            var i = 0
-            while (i < completePlateScheme.size){
-                completePlateScheme[i] = plateScheme(scheme[i])
-                i++
-            }
+            Array(sets){IntArray(plateArrayLbs.size)}
         }
         else{
-            completePlateScheme = Array(sets){IntArray(10)}
+            Array(sets){IntArray(plateArrayKgs.size)}
+        }
+        var i = 0
+        while (i < completePlateScheme.size){
+            completePlateScheme[i] = plateScheme(scheme[i])
+            i++
         }
         return completePlateScheme
     }
@@ -125,15 +126,18 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      */
     private fun plateScheme(weight: Int): IntArray{
         val plates: IntArray
-        var currentWeight: Int
+        var currentWeight = weight - barWeight
         if (unit == "kilograms"){
-            // code for kilo
-                currentWeight = weight - 20
-            plates = IntArray(10)
+            plates = IntArray(plateArrayKgs.size)
+            var i = 0
+            while (i < plates.size){
+                plates[i] = currentWeight / plateArrayKgs[i]
+                currentWeight %= plateArrayKgs[i]
+                i++
+            }
         }
         else{
-            currentWeight = weight - 45
-            plates = IntArray(7)
+            plates = IntArray(plateArrayLbs.size)
             var i = 0
             while (i < plates.size){
                 plates[i] = currentWeight / plateArrayLbs[i]
