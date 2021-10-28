@@ -108,6 +108,30 @@ class SetSchemeTest{
         assertArrayEquals(solution, setScheme)
     }
 
+    @Test
+    fun testCalculateSchemeKilograms1(){
+        val scheme = SetScheme(4, 270, "kilograms")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(85, 150, 215, 270)
+        assertArrayEquals(solution, setScheme)
+    }
+
+    @Test
+    fun testCalculateSchemeKilograms2(){
+        val scheme = SetScheme(4, 200, "kilograms")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(65, 110, 155, 200)
+        assertArrayEquals(solution, setScheme)
+    }
+
+    @Test
+    fun testCalculateSchemeKilograms3(){
+        val scheme = SetScheme(4, 238, "kilograms")
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(75, 130, 185, 238)
+        assertArrayEquals(solution, setScheme)
+    }
+
     // Tests for calculating plate scheme
     @Test
     fun testPlateSchemePounds1(){
