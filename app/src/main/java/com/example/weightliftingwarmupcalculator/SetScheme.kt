@@ -39,14 +39,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  the unit (in kilograms or pounds)
      */
     fun getUnit(): String{
-        val unitName =
-        if (unit is Kilogram){
-            "kilogram"
-        }
-        else{
-            "pound"
-        }
-        return unitName
+        return if (unit is Kilogram) "kilogram" else "pound"
     }
 
     /**
