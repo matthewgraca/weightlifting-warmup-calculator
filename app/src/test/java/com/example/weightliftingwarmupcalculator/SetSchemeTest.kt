@@ -9,8 +9,8 @@ class SetSchemeTest{
     @Test
     fun testConstructorPoundsNormalExample(){
         try{
-            val scheme = SetScheme(4, 265, "pounds")
-            assertTrue(scheme.getWorkingWeight() == 265 && scheme.getUnit() == "pounds")
+            val scheme = SetScheme(4, 265, Pound())
+            assertTrue(scheme.getWorkingWeight() == 265 && scheme.getUnit() == "pound")
         }
         catch(exception: Exception) {
             assertTrue(false)
@@ -20,8 +20,8 @@ class SetSchemeTest{
     @Test
     fun testConstructorPoundsLowerLimit(){
         try{
-            val scheme = SetScheme(4, 45, "pounds")
-            assertTrue(scheme.getWorkingWeight() == 45 && scheme.getUnit() == "pounds")
+            val scheme = SetScheme(4, 45, Pound())
+            assertTrue(scheme.getWorkingWeight() == 45 && scheme.getUnit() == "pound")
         }
         catch(exception: Exception) {
             assertTrue(false)
@@ -31,7 +31,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorPoundsBelowLowerLimit(){
         try{
-            SetScheme(4, 40, "pounds")
+            SetScheme(4, 40, Pound())
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -42,8 +42,8 @@ class SetSchemeTest{
     @Test
     fun testConstructorKilogramsLowerLimit(){
         try{
-            val scheme = SetScheme(4, 20, "kilograms")
-            assertTrue(scheme.getWorkingWeight() == 20 && scheme.getUnit() == "kilograms")
+            val scheme = SetScheme(4, 20, Kilogram())
+            assertTrue(scheme.getWorkingWeight() == 20 && scheme.getUnit() == "kilogram")
         }
         catch(exception: Exception) {
             assertTrue(false)
@@ -53,18 +53,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorKilogramsBelowLowerLimit(){
         try{
-            SetScheme(4, 10, "kilograms")
-            assertTrue(false)
-        }
-        catch(exception: IllegalArgumentException) {
-            assertTrue(true)
-        }
-    }
-
-    @Test
-    fun testConstructorUnitMisspelling(){
-        try{
-            SetScheme(4, 30, "kilogams")
+            SetScheme(4, 10, Kilogram())
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -75,7 +64,7 @@ class SetSchemeTest{
     @Test
     fun testConstructorInvalidSetCount(){
         try{
-            SetScheme(0, 30, "kilograms")
+            SetScheme(0, 30, Kilogram())
             assertTrue(false)
         }
         catch(exception: IllegalArgumentException) {
@@ -86,7 +75,7 @@ class SetSchemeTest{
     // Tests for calculating scheme
     @Test
     fun testCalculateSchemePounds1(){
-        val scheme = SetScheme(4, 265, "pounds")
+        val scheme = SetScheme(4, 265, Pound())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(100, 155, 210, 265)
         assertArrayEquals(solution, setScheme)
@@ -94,7 +83,7 @@ class SetSchemeTest{
 
     @Test
     fun testCalculateSchemePounds2(){
-        val scheme = SetScheme(4, 300, "pounds")
+        val scheme = SetScheme(4, 300, Pound())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(110, 175, 240, 300)
         assertArrayEquals(solution, setScheme)
@@ -102,7 +91,7 @@ class SetSchemeTest{
 
     @Test
     fun testCalculateSchemePounds3(){
-        val scheme = SetScheme(4, 238, "pounds")
+        val scheme = SetScheme(4, 238, Pound())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(95, 145, 195, 238)
         assertArrayEquals(solution, setScheme)
@@ -110,7 +99,7 @@ class SetSchemeTest{
 
     @Test
     fun testCalculateSchemeKilograms1(){
-        val scheme = SetScheme(4, 270, "kilograms")
+        val scheme = SetScheme(4, 270, Kilogram())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(85, 150, 215, 270)
         assertArrayEquals(solution, setScheme)
@@ -118,7 +107,7 @@ class SetSchemeTest{
 
     @Test
     fun testCalculateSchemeKilograms2(){
-        val scheme = SetScheme(4, 200, "kilograms")
+        val scheme = SetScheme(4, 200, Kilogram())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(65, 110, 155, 200)
         assertArrayEquals(solution, setScheme)
@@ -126,7 +115,7 @@ class SetSchemeTest{
 
     @Test
     fun testCalculateSchemeKilograms3(){
-        val scheme = SetScheme(4, 238, "kilograms")
+        val scheme = SetScheme(4, 238, Kilogram())
         val setScheme = scheme.getScheme()
         val solution = intArrayOf(75, 130, 185, 238)
         assertArrayEquals(solution, setScheme)
@@ -135,7 +124,7 @@ class SetSchemeTest{
     // Tests for calculating plate scheme
     @Test
     fun testPlateSchemePounds1(){
-        val scheme = SetScheme(4, 265, "pounds")
+        val scheme = SetScheme(4, 265, Pound())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 0, 1),
                                 intArrayOf(1, 0, 0, 0, 0, 0, 0),
@@ -146,7 +135,7 @@ class SetSchemeTest{
 
     @Test
     fun testPlateSchemePounds2(){
-        val scheme = SetScheme(4, 300, "pounds")
+        val scheme = SetScheme(4, 300, Pound())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 1, 1),
                                 intArrayOf(1, 0, 0, 0, 1, 0, 0),
@@ -157,7 +146,7 @@ class SetSchemeTest{
 
     @Test
     fun testPlateSchemePounds3(){
-        val scheme = SetScheme(4, 238, "pounds")
+        val scheme = SetScheme(4, 238, Pound())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 0, 0),
                                 intArrayOf(0, 1, 0, 0, 0, 1, 0),
@@ -168,7 +157,7 @@ class SetSchemeTest{
 
     @Test
     fun testPlateSchemeKilograms1(){
-        val scheme = SetScheme(4, 270, "kilograms")
+        val scheme = SetScheme(4, 270, Kilogram())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf(
             intArrayOf(1, 0, 0, 0, 1, 1, 0, 0, 0, 0),
@@ -180,7 +169,7 @@ class SetSchemeTest{
 
     @Test
     fun testPlateSchemeKilograms2(){
-        val scheme = SetScheme(4, 200, "kilograms")
+        val scheme = SetScheme(4, 200, Kilogram())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf(
             intArrayOf(0, 1, 0, 0, 0, 1, 0, 0, 0, 0),
@@ -192,7 +181,7 @@ class SetSchemeTest{
 
     @Test
     fun testPlateSchemeKilograms3(){
-        val scheme = SetScheme(4, 238, "kilograms")
+        val scheme = SetScheme(4, 238, Kilogram())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf(
             intArrayOf(1, 0, 0, 0, 0, 1, 0, 0, 0, 0),

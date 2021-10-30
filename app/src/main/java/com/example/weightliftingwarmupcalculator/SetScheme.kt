@@ -3,35 +3,20 @@ package com.example.weightliftingwarmupcalculator
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
-class SetScheme(private val sets: Int, private val workingWeight: Int, private val unit: String) {
-    private val barWeight: Int
+class SetScheme(private val sets: Int, private val workingWeight: Int, private val unit: Unit) {
     private var scheme: IntArray
-    private val plateArrayLbs: IntArray = intArrayOf(110, 90, 70, 50, 20, 10, 5)
-    private val plateArrayKgs: IntArray = intArrayOf(50, 40, 30, 20, 10, 5, 4, 3, 2, 1)
 
     /**
      * Properly initializes workingWeight, unit, and sets. Also initializes set scheme
      */
     init{
-        // arg check workingWeight and unit
-        when (unit) {
-            "kilograms" -> {
-                barWeight = 20
-                if (workingWeight < 20){
-                    throw IllegalArgumentException("Working weight must be >= 20")
-                }
-            }
-            "pounds" -> {
-                barWeight = 45
-                if (workingWeight < 45){
-                    throw IllegalArgumentException("Working weight must be >= 45")
-                }
-            }
-            else -> {
-                throw IllegalArgumentException("Unit must be either in kilograms or pounds")
-            }
+        // arg check weight
+        if (unit is Kilogram && workingWeight < 20){
+            throw IllegalArgumentException("Weight must be greater than or equal to 20")
         }
-
+        if (unit is Pound && workingWeight < 45){
+            throw IllegalArgumentException("Weight must be greater than or equal to 45")
+        }
         // arg check sets
         if (sets < 1){
             throw IllegalArgumentException("Sets must be greater than 0")
@@ -54,7 +39,14 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  the unit (in kilograms or pounds)
      */
     fun getUnit(): String{
-        return unit
+        val unitName =
+        if (unit is Kilogram){
+            "kilogram"
+        }
+        else{
+            "pound"
+        }
+        return unitName
     }
 
     /**
@@ -62,7 +54,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  the weight of the bar, determined by kilograms (20) or pounds (45)
      */
     fun getBarWeight(): Int{
-        return barWeight
+        return unit.barWeight
     }
 
     /**
@@ -78,13 +70,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  a two-dimensional array of plate schemes for each set
      */
     fun getPlateScheme(): Array<IntArray>{
-        val completePlateScheme: Array<IntArray> =
-        if (unit == "pounds"){
-            Array(sets){IntArray(plateArrayLbs.size)}
-        }
-        else{
-            Array(sets){IntArray(plateArrayKgs.size)}
-        }
+        val completePlateScheme: Array<IntArray> = Array(sets){IntArray(unit.plateArray.size)}
         var i = 0
         while (i < completePlateScheme.size){
             completePlateScheme[i] = plateScheme(scheme[i])
@@ -99,11 +85,12 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      */
     private fun calculateScheme(): IntArray{
         val tempScheme = IntArray(sets)
-        val incrementWeight = roundToNearest5th((workingWeight - barWeight) / (sets * 1.0))
-        var subtotal = barWeight
+        val incrementWeight = (workingWeight - unit.barWeight) / (sets * 1.0)
+        val roundedIncrementWeight = roundToNearest5th(incrementWeight)
+        var subtotal = unit.barWeight
         var i = 0
         while (i < sets){
-            subtotal += incrementWeight
+            subtotal += roundedIncrementWeight
             tempScheme[i] = subtotal
             i++
         }
@@ -125,25 +112,13 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  an array of plates that constructs the given weight
      */
     private fun plateScheme(weight: Int): IntArray{
-        val plates: IntArray
-        var currentWeight = weight - barWeight
-        if (unit == "kilograms"){
-            plates = IntArray(plateArrayKgs.size)
-            var i = 0
-            while (i < plates.size){
-                plates[i] = currentWeight / plateArrayKgs[i]
-                currentWeight %= plateArrayKgs[i]
-                i++
-            }
-        }
-        else{
-            plates = IntArray(plateArrayLbs.size)
-            var i = 0
-            while (i < plates.size){
-                plates[i] = currentWeight / plateArrayLbs[i]
-                currentWeight %= plateArrayLbs[i]
-                i++
-            }
+        val plates = IntArray(unit.plateArray.size)
+        var currentWeight = weight - unit.barWeight
+        var i = 0
+        while (i < plates.size){
+            plates[i] = currentWeight / unit.plateArray[i]
+            currentWeight %= unit.plateArray[i]
+            i++
         }
         return plates
     }

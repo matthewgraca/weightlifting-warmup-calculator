@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             val weightedSets = 4
-            val scheme = SetScheme(weightedSets, workingWeight, "pounds")
+            val scheme = SetScheme(weightedSets, workingWeight, Pound())
             val setScheme = scheme.getScheme()
             displayScheme(setScheme)
         }
