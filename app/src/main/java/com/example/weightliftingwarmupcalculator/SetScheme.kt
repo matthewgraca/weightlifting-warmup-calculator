@@ -77,11 +77,10 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     private fun calculateScheme(): IntArray{
         val tempScheme = IntArray(sets)
         val incrementWeight = (workingWeight - unit.barWeight) / (sets * 1.0)
-        val roundedIncrementWeight = roundToNearest5th(incrementWeight)
-        var subtotal = unit.barWeight
+        var subtotal = unit.barWeight.toDouble()
         for (i in tempScheme.indices){
-            subtotal += roundedIncrementWeight
-            tempScheme[i] = subtotal
+            subtotal += incrementWeight
+            tempScheme[i] = roundToNearest5th(subtotal)
         }
         tempScheme[sets-1] = workingWeight  // enforce the final set to be the working weight
         return tempScheme
@@ -93,7 +92,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  the number rounded to the nearest 5, as an integer
      */
     private fun roundToNearest5th(num: Double): Int{
-        return (kotlin.math.ceil(num / 5.0) * 5).roundToInt()
+        return (num/5).roundToInt() * 5
     }
 
     /**

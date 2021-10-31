@@ -85,7 +85,7 @@ class SetSchemeTest{
     fun testCalculateSchemePounds2(){
         val scheme = SetScheme(4, 300, Pound())
         val setScheme = scheme.getScheme()
-        val solution = intArrayOf(110, 175, 240, 300)
+        val solution = intArrayOf(110, 175, 235, 300)
         assertArrayEquals(solution, setScheme)
     }
 
@@ -93,7 +93,7 @@ class SetSchemeTest{
     fun testCalculateSchemePounds3(){
         val scheme = SetScheme(4, 238, Pound())
         val setScheme = scheme.getScheme()
-        val solution = intArrayOf(95, 145, 195, 238)
+        val solution = intArrayOf(95, 140, 190, 238)
         assertArrayEquals(solution, setScheme)
     }
 
@@ -101,7 +101,7 @@ class SetSchemeTest{
     fun testCalculateSchemeKilograms1(){
         val scheme = SetScheme(4, 270, Kilogram())
         val setScheme = scheme.getScheme()
-        val solution = intArrayOf(85, 150, 215, 270)
+        val solution = intArrayOf(85, 145, 210, 270)
         assertArrayEquals(solution, setScheme)
     }
 
@@ -139,7 +139,7 @@ class SetSchemeTest{
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 1, 1),
                                 intArrayOf(1, 0, 0, 0, 1, 0, 0),
-                                intArrayOf(1, 0, 1, 0, 0, 1, 1),
+                                intArrayOf(1, 0, 1, 0, 0, 1, 0),
                                 intArrayOf(2, 0, 0, 0, 1, 1, 1))
         assertArrayEquals(solution, plateScheme)
     }
@@ -149,8 +149,8 @@ class SetSchemeTest{
         val scheme = SetScheme(4, 238, Pound())
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf( intArrayOf(0, 0, 0, 1, 0, 0, 0),
-                                intArrayOf(0, 1, 0, 0, 0, 1, 0),
-                                intArrayOf(1, 0, 0, 0, 2, 0, 0),
+                                intArrayOf(0, 1, 0, 0, 0, 0, 1),
+                                intArrayOf(1, 0, 0, 0, 1, 1, 1),
                                 intArrayOf(1, 0, 1, 0, 0, 1, 0))
         assertArrayEquals(solution, plateScheme)
     }
@@ -161,8 +161,8 @@ class SetSchemeTest{
         val plateScheme = scheme.getPlateScheme()
         val solution = arrayOf(
             intArrayOf(1, 0, 0, 0, 1, 1, 0, 0, 0, 0),
-            intArrayOf(2, 0, 1, 0, 0, 0, 0, 0, 0, 0),
-            intArrayOf(3, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+            intArrayOf(2, 0, 0, 1, 0, 1, 0, 0, 0, 0),
+            intArrayOf(3, 1, 0, 0, 0, 0, 0, 0, 0, 0),
             intArrayOf(5, 0, 0, 0, 0, 0, 0, 0, 0, 0))
         assertArrayEquals(solution, plateScheme)
     }
@@ -189,5 +189,15 @@ class SetSchemeTest{
             intArrayOf(3, 0, 0, 0, 1, 1, 0, 0, 0, 0),
             intArrayOf(4, 0, 0, 0, 1, 1, 0, 1, 0, 0))
         assertArrayEquals(solution, plateScheme)
+    }
+
+    // test multiple sets
+    //@Test
+    fun test10SetsPounds1(){
+        val scheme = SetScheme(10, 175, Pound())
+        val setScheme = scheme.getScheme()
+        val solution = intArrayOf(60, 75, 90, 105, 120, 135)
+        val errorMsg = "Expected " + solution.contentToString() + ", Actual " + setScheme.contentToString()
+        assertArrayEquals(errorMsg, solution, setScheme)
     }
 }
