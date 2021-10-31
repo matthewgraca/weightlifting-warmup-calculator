@@ -64,10 +64,8 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      */
     fun getPlateScheme(): Array<IntArray>{
         val completePlateScheme: Array<IntArray> = Array(sets){IntArray(unit.plateArray.size)}
-        var i = 0
-        while (i < completePlateScheme.size){
+        for (i in completePlateScheme.indices){
             completePlateScheme[i] = plateScheme(scheme[i])
-            i++
         }
         return completePlateScheme
     }
@@ -81,11 +79,9 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
         val incrementWeight = (workingWeight - unit.barWeight) / (sets * 1.0)
         val roundedIncrementWeight = roundToNearest5th(incrementWeight)
         var subtotal = unit.barWeight
-        var i = 0
-        while (i < sets){
+        for (i in tempScheme.indices){
             subtotal += roundedIncrementWeight
             tempScheme[i] = subtotal
-            i++
         }
         tempScheme[sets-1] = workingWeight  // enforce the final set to be the working weight
         return tempScheme
@@ -107,11 +103,9 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     private fun plateScheme(weight: Int): IntArray{
         val plates = IntArray(unit.plateArray.size)
         var currentWeight = weight - unit.barWeight
-        var i = 0
-        while (i < plates.size){
+        for (i in plates.indices){
             plates[i] = currentWeight / unit.plateArray[i]
             currentWeight %= unit.plateArray[i]
-            i++
         }
         return plates
     }
