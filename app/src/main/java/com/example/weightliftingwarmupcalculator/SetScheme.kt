@@ -65,7 +65,7 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     fun getPlateScheme(): Array<IntArray>{
         val completePlateScheme: Array<IntArray> = Array(sets){IntArray(unit.plateArray.size)}
         for (i in completePlateScheme.indices){
-            completePlateScheme[i] = plateScheme(scheme[i])
+            completePlateScheme[i] = calculatePlateScheme(scheme[i])
         }
         return completePlateScheme
     }
@@ -76,10 +76,10 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      */
     private fun calculateScheme(): IntArray{
         val tempScheme = IntArray(sets)
-        val incrementWeight = (workingWeight - unit.barWeight) / (sets * 1.0)
+        val exactIncrement = (workingWeight - unit.barWeight) / (sets * 1.0)
         var subtotal = unit.barWeight.toDouble()
         for (i in tempScheme.indices){
-            subtotal += incrementWeight
+            subtotal += exactIncrement
             tempScheme[i] = roundToNearest5th(subtotal)
         }
         tempScheme[sets-1] = workingWeight  // enforce the final set to be the working weight
@@ -87,25 +87,25 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
     }
 
     /**
-     * Helper function that rounds a double to the nearest 5th, and converts it into an integer
+     * Helper function that rounds a double to the nearest 5th
      * @param   num the number being converted
      * @return  the number rounded to the nearest 5, as an integer
      */
     private fun roundToNearest5th(num: Double): Int{
-        return (num/5).roundToInt() * 5
+        return (num / 5).roundToInt() * 5
     }
 
     /**
-     * Takes weight and gives the set of plates needed to construct that weight
+     * Calculates the set of plates needed to construct a given weight
      * @return  an array of plates that constructs the given weight
      */
-    private fun plateScheme(weight: Int): IntArray{
-        val plates = IntArray(unit.plateArray.size)
+    private fun calculatePlateScheme(weight: Int): IntArray{
+        val plateScheme = IntArray(unit.plateArray.size)
         var currentWeight = weight - unit.barWeight
-        for (i in plates.indices){
-            plates[i] = currentWeight / unit.plateArray[i]
+        for (i in plateScheme.indices){
+            plateScheme[i] = currentWeight / unit.plateArray[i]
             currentWeight %= unit.plateArray[i]
         }
-        return plates
+        return plateScheme
     }
 }
