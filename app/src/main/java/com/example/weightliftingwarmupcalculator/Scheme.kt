@@ -3,8 +3,9 @@ package com.example.weightliftingwarmupcalculator
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
-class SetScheme(private val sets: Int, private val workingWeight: Int, private val unit: Unit) {
-    private var scheme: IntArray
+class Scheme(private val sets: Int, private val workingWeight: Int, private val unit: Unit) {
+    private var weightScheme: IntArray
+    private var plateScheme: Array<IntArray>
 
     /**
      * Properly initializes workingWeight, unit, and sets. Also initializes set scheme
@@ -22,8 +23,9 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
             throw IllegalArgumentException("Sets must be greater than 0")
         }
 
-        // initialize set scheme immediately
-        scheme = calculateScheme()
+        // initialize weight and plate scheme immediately
+        weightScheme = calculateWeightScheme()
+        plateScheme = calculatePlateScheme()
     }
 
     /**
@@ -54,8 +56,8 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * Getter for scheme
      * @return  the set scheme to be used by the lifter, as an array
      */
-    fun getScheme(): IntArray{
-        return scheme
+    fun getWeightScheme(): IntArray{
+        return weightScheme
     }
 
     /**
@@ -63,18 +65,26 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  a two-dimensional array of plate schemes for each set
      */
     fun getPlateScheme(): Array<IntArray>{
+        return plateScheme
+    }
+
+    /**
+     * Helper function that calculates the plate scheme for every set
+     * @return  a two-dimensional array of plate schemes for each set
+     */
+    private fun calculatePlateScheme(): Array<IntArray>{
         val completePlateScheme: Array<IntArray> = Array(sets){IntArray(unit.plateArray.size)}
         for (i in completePlateScheme.indices){
-            completePlateScheme[i] = calculatePlateScheme(scheme[i])
+            completePlateScheme[i] = calculatePlateScheme(weightScheme[i])
         }
         return completePlateScheme
     }
 
     /**
-     * Helper function that calculates the set scheme the lifter follows
+     * Helper function that calculates the weight scheme the lifter follows
      * @return  the set scheme the lifter follows, as an array
      */
-    private fun calculateScheme(): IntArray{
+    private fun calculateWeightScheme(): IntArray{
         val tempScheme = IntArray(sets)
         val exactIncrement = (workingWeight - unit.barWeight) / (sets * 1.0)
         var subtotal = unit.barWeight.toDouble()
@@ -100,12 +110,12 @@ class SetScheme(private val sets: Int, private val workingWeight: Int, private v
      * @return  an array of plates that constructs the given weight
      */
     private fun calculatePlateScheme(weight: Int): IntArray{
-        val plateScheme = IntArray(unit.plateArray.size)
+        val tempScheme = IntArray(unit.plateArray.size)
         var currentWeight = weight - unit.barWeight
-        for (i in plateScheme.indices){
-            plateScheme[i] = currentWeight / unit.plateArray[i]
+        for (i in tempScheme.indices){
+            tempScheme[i] = currentWeight / unit.plateArray[i]
             currentWeight %= unit.plateArray[i]
         }
-        return plateScheme
+        return tempScheme
     }
 }
