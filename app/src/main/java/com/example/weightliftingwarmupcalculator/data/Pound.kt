@@ -1,4 +1,4 @@
-package com.example.weightliftingwarmupcalculator
+package com.example.weightliftingwarmupcalculator.data
 
 class Pound(): Unit {
     override val barWeight = 45

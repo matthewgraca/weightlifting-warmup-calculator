@@ -1,4 +1,4 @@
-package com.example.weightliftingwarmupcalculator
+package com.example.weightliftingwarmupcalculator.data
 
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt

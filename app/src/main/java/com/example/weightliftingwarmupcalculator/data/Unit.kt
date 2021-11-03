@@ -1,4 +1,4 @@
-package com.example.weightliftingwarmupcalculator
+package com.example.weightliftingwarmupcalculator.data
 
 interface Unit {
     val barWeight: Int

@@ -2,6 +2,8 @@ package com.example.weightliftingwarmupcalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.weightliftingwarmupcalculator.data.Pound
+import com.example.weightliftingwarmupcalculator.data.Scheme
 import com.example.weightliftingwarmupcalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

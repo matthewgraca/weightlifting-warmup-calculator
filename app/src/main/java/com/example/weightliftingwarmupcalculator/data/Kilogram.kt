@@ -1,4 +1,4 @@
-package com.example.weightliftingwarmupcalculator
+package com.example.weightliftingwarmupcalculator.data
 
 class Kilogram(): Unit {
     override val barWeight = 20

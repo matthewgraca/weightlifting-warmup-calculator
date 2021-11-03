@@ -1,5 +1,8 @@
 package com.example.weightliftingwarmupcalculator
 
+import com.example.weightliftingwarmupcalculator.data.Kilogram
+import com.example.weightliftingwarmupcalculator.data.Pound
+import com.example.weightliftingwarmupcalculator.data.Scheme
 import org.junit.Assert.*
 import org.junit.Test
 import java.lang.IllegalArgumentException
