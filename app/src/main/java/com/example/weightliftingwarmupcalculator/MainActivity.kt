@@ -2,9 +2,12 @@ package com.example.weightliftingwarmupcalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
+import com.example.weightliftingwarmupcalculator.adapter.ItemAdapter
 import com.example.weightliftingwarmupcalculator.data.Pound
 import com.example.weightliftingwarmupcalculator.data.Scheme
 import com.example.weightliftingwarmupcalculator.databinding.ActivityMainBinding
+import com.example.weightliftingwarmupcalculator.model.Datasource
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,12 +18,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.calculateButton.setOnClickListener{findScheme()}
+        //binding.calculateButton.setOnClickListener{findScheme()}
+
+        // initialize data
+        val myDataset = Datasource().loadSets()
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.adapter = ItemAdapter(this, myDataset)
+
+        // Use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true)
     }
 
     /**
      * This function calculates the weight scheme the user will follow
      */
+    /*
     private fun findScheme(){
         val workingWeight = binding.workingWeight.text.toString().toIntOrNull()
 
@@ -46,4 +59,6 @@ class MainActivity : AppCompatActivity() {
         binding.set3Result.text = getString(R.string.set_3, scheme[2].toString())
         binding.set4Result.text = getString(R.string.set_4, scheme[3].toString())
     }
+
+     */
 }

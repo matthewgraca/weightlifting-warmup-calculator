@@ -2,8 +2,8 @@
     <string name="app_name">Weightlifting Warmup Calculator</string>
     <string name="working_weight">Working Weight</string>
     <string name="calculate">Calculate</string>
-    <string name="set_1">Set 1: %s</string>
-    <string name="set_2">Set 2: %s</string>
-    <string name="set_3">Set 3: %s</string>
-    <string name="set_4">Set 4: %s</string>
+    <string name="set_1">Set 1: 100</string>
+    <string name="set_2">Set 2: 200</string>
+    <string name="set_3">Set 3: 300</string>
+    <string name="set_4">Set 4: 400</string>
 </resources>
